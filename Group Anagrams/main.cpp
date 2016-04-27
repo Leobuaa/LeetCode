@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // Hash table, it runs 76ms.
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
         vector<vector<string>> res;
         vector<string> sortedStrs = strs;
