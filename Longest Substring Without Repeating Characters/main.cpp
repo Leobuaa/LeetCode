@@ -35,4 +35,25 @@ public:
         }
         return max(res, len - index);
     }
+
+    // A better one solution
+    int lengthOfLongestSubstring(string s) {
+        int counter = 0;
+        int begin = 0, end = 0, len = 0;
+        vector<int> map(256, 0);
+        while (end < s.length()) {
+            if (map[s[end++]]++ > 0) {
+                counter++;
+            }
+            
+            while (counter > 0) {
+                if (map[s[begin++]]-- > 1) {
+                    counter--;
+                }
+            }
+            
+            len = max(len, end - begin);
+        }
+        return len;
+    }
 };
