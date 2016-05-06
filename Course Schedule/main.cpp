@@ -5,8 +5,8 @@ public:
         vector<vector<int>> graph(numCourses);
         vector<int> ind(numCourses, 0);
         for (auto p : prerequisites) {
-            graph[p.first].push_back(p.second);
-            ind[p.second]++;
+            graph[p.second].push_back(p.first);
+            ind[p.first]++;
         }
 
         int cnt = 0;
