@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // My previous solutions. It's too long.
     int search(vector<int>& nums, int l, int r, int target) {
         int low = l, high = r;
         int mid = (low + high) >> 1;
@@ -59,4 +60,33 @@ public:
         return res == -1 ? search(nums, pivotPos, nums.size() - 1, target) : res;
     }
     
+    // A better and simple one, less code
+    int search(vector<int>& nums, int target) {
+        int low = 0, high = nums.size() - 1, pivotPos = (low + high) >> 1;
+        while (low < high) {
+            if (nums[pivotPos] > nums[high]) {
+                low = pivotPos + 1;
+            } else {
+                high = pivotPos;
+            }
+            pivotPos = (low + high) >> 1;
+        }
+        
+        int res = -1, size = nums.size();
+        int l = 0, r = nums.size() - 1, mid = (l + r) >> 1;
+        while (l <= r) {
+            int pos = (mid + pivotPos) % size;
+            if (nums[pos] == target) {
+                res = pos;
+                break;
+            }
+            if (nums[pos] > target) {
+                r = mid - 1;
+            } else {
+                l = mid + 1;
+            }
+            mid = (l + r) >> 1;
+        }
+        return res;
+    }
 };
