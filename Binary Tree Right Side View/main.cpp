@@ -9,6 +9,7 @@
  */
 class Solution {
 public:
+    // My own solution uses queue.
     vector<int> rightSideView(TreeNode* root) {
         queue<pair<TreeNode*, int>> que;
         vector<int> res;
@@ -35,6 +36,26 @@ public:
                 que.push(make_pair(tmp.first->right, tmp.second + 1));
             }
         }
+        return res;
+    }
+
+    // A better and simple solution. DFS
+    void dfs(TreeNode* node, int level, vector<int> &res) {
+        if (!node) {
+            return;
+        }
+        
+        if (level >= res.size()) {
+            res.push_back(node->val);
+        }
+        
+        dfs(node->right, level + 1, res);
+        dfs(node->left, level + 1, res);
+    }
+
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> res;
+        dfs(root, 0, res);
         return res;
     }
 };
