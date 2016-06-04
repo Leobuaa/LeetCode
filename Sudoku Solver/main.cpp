@@ -1,6 +1,6 @@
 class Solution {
 public:
-    // Backtracking. Use a vector to store the solution.
+    // Backtracking. Use a vector to store the solution. It runs 76ms.
     void solveSudoku(vector<vector<char>>& board) {
         const int n = 9;
         vector<vector<bool>> row(9, vector<bool>(10, false));
@@ -67,5 +67,63 @@ public:
             }
         }
 
+    }
+
+    // DFS solution. It runs 4ms.
+    // bool flag = false;
+    const int n = 9;
+    bool row[9][10], col[9][10], cube[9][10];
+
+    void solveSudoku(vector<vector<char>>& board) {
+        memset(col,false,sizeof(col));
+        memset(row,false,sizeof(row));
+        memset(cube,false,sizeof(cube));
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (isdigit(board[i][j])) {
+                    row[i][board[i][j] - '0'] = true;
+                    col[j][board[i][j] - '0'] = true;
+                    cube[i / 3 * 3 + j / 3][board[i][j] - '0'] = true;
+                }
+            }
+        }
+        dfs(board, 0, 0);
+    }
+    
+    void dfs(vector<vector<char>>& board, int i, int j) {
+        if (flag) {
+            return;
+        }
+        
+        if (i >= 9) {
+            flag = true;
+            return;
+        }
+        
+        if (isdigit(board[i][j])) {
+            if (j < n - 1) {
+                dfs(board, i, j + 1);
+            } else {
+                dfs(board, i + 1, 0);
+            }
+        } else {
+            for (int c = 1; c <= n; c++) {
+                if (!row[i][c] && !col[j][c] && !cube[i / 3 * 3 + j / 3][c]) {
+                    board[i][j] = c + '0';
+                    row[i][c] = col[j][c] = cube[i / 3 * 3 + j / 3][c] = true;
+                    if (j < n - 1) {
+                        dfs(board, i, j + 1);
+                    } else {
+                        dfs(board, i + 1, 0);
+                    }
+                    if (flag) {
+                        return;
+                    }
+                    board[i][j] = '.';
+                    row[i][c] = col[j][c] = cube[i / 3 * 3 + j / 3][c] = false;
+                }
+            }
+            
+        }
     }
 };
