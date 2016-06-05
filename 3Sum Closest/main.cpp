@@ -4,8 +4,6 @@ public:
     sort(nums.begin(), nums.end());
     int result = 0;
     int i = 0, j = int(nums.size()) - 1;
-    if (j == 2)
-        return nums[0] + nums[1] + nums[2];
     int min = INT_MAX;
     while (i < j - 1)
     {
