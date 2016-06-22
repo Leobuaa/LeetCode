@@ -38,3 +38,54 @@ public:
 	    return Iterator::hasNext();
 	}
 };
+
+// Another solution
+class PeekingIterator : public Iterator {
+public:
+	PeekingIterator(const vector<int>& nums) : Iterator(nums) {
+	    // Initialize any member here.
+	    // **DO NOT** save a copy of nums and manipulate it directly.
+	    // You should only use the Iterator interface methods.
+	    peeked = false;
+	}
+
+    // Returns the next element in the iteration without advancing the iterator.
+	int peek() {
+        if (peeked) {
+            return peekElement;
+        }
+        
+        if (Iterator::hasNext()) {
+            peeked = true;
+            peekElement = Iterator::next();
+            return peekElement;
+        }
+        
+        return 0;
+	}
+
+	// hasNext() and next() should behave the same as in the Iterator interface.
+	// Override them if needed.
+	int next() {
+	    if (peeked) {
+	        peeked = false;
+	        return peekElement;
+	    }
+	    
+	    if (Iterator::hasNext()) {
+	        return Iterator::next();
+	    }
+	    
+	    return 0;
+	}
+
+	bool hasNext() const {
+	    if (peeked) {
+	        return true;
+	    }
+	    return Iterator::hasNext();
+	}
+private:
+    bool peeked;
+    int peekElement;
+};
