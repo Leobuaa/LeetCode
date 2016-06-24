@@ -31,4 +31,19 @@ public:
         }
         return res;
     }
+
+    // Bit manipulation
+    vector<vector<int>> subsets(vector<int>& nums) {
+        int n = nums.size();
+        int resSize = (int)pow(2, n);
+        vector<vector<int>> res(resSize, vector<int>());
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < resSize; j++) {
+                if ((j >> i) & 1) {
+                    res[j].push_back(nums[i]);
+                }
+            }
+        }
+        return res;
+    }
 };
