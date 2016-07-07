@@ -4,18 +4,17 @@ public:
         int size = gas.size();
         int start = 0;
         while (start < size) {
-            int cnt = 0, sum = 0, end = start;
-            while (cnt < size) {
+            int sum = 0, end = start;
+            while ((end - start) < size) {
                 sum += gas[end % size] - cost[end % size];
                 if (sum < 0) {
                     break;
                 } else {
-                    cnt++;
                     end++;
                 }
             }
             
-            if (cnt < size) {
+            if ((end - start) < size) {
                 start = end + 1;
             } else {
                 return start;
