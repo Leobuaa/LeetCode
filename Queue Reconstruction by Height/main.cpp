@@ -26,4 +26,20 @@ public:
         
         return res;
     }
+
+    // Another better solution from discuss
+    vector<pair<int, int>> reconstructQueue(vector<pair<int, int>>& people) {
+        auto comp = [](const pair<int, int>& x, const pair<int, int>& y) {
+            return (x.first > y.first || (x.first == y.first && x.second < y.second));   
+        };
+        
+        sort(people.begin(), people.end(), comp);
+        vector<pair<int, int>> res;
+        
+        for (auto &p : people) {
+            res.insert(res.begin() + p.second, p);
+        }
+        
+        return res;
+    }
 };
