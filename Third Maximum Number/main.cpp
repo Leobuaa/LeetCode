@@ -1,5 +1,28 @@
 class Solution {
 public:
+    // From leetcode discuss. It runs 6ms. More simple and clear.
+    int thirdMax(vector<int>& nums) {
+        int a, b, c;
+        a = b = c = INT32_MIN;
+        int minNum = INT32_MAX;
+        for (int num : nums) {
+            minNum = min(num, minNum);
+            if (num <= c || num == b || num == a) {
+                continue;
+            }
+            c = num;
+            if (c > b) {
+                swap(b, c);
+            }
+            
+            if (b > a) {
+                swap(a, b);
+            }
+        }
+        
+        return (c >= minNum && b > c)? c : a;
+    }
+
     // My solution. It runs 9ms. Not so good.
     int thirdMax(vector<int>& nums) {
         if (nums.size() == 1) {
