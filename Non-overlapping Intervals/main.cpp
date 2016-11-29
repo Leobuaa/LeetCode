@@ -17,6 +17,7 @@ public:
         vector<Interval> res;
         vector<Interval> copyIntervals(intervals);
         auto comp = [](Interval x, Interval y) {
+            // Actually, x.end < y.end is ok.
             return x.end < y.end || (x.end == y.end && x.start > y.start);
         };
         
