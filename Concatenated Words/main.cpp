@@ -29,7 +29,7 @@ public:
     }
 
     // MEL. But 43 test cases passed. 
-        struct TreeNode {
+    struct TreeNode {
         char c;
         bool end;
         TreeNode *nexts[26];
@@ -98,5 +98,30 @@ public:
             }
             cur->end = true;
         }
+    }
+
+    // It runs 400+ms. Recursive. The idea is the same as DP.
+    vector<string> findAllConcatenatedWordsInADict(vector<string>& words) {
+        unordered_set<string> dict(words.begin(), words.end());
+        vector<string> res;
+        
+        for (auto &s : words) {
+            if (s.length() == 0) continue;
+            if (isConcatednated(s, 0, dict, true))
+                res.push_back(s);
+        }
+        
+        return res;
+    }
+    
+    bool isConcatednated(string& s, int st, unordered_set<string>& dict, bool first) {
+        if (st == s.length())   return true;
+        int end = first ? (s.length() - 1) : s.length();
+        for (int i = st; i < end; i++) {
+            string tmp = s.substr(st, i - st + 1);
+            if (dict.count(tmp) == 0) continue;
+            if (isConcatednated(s, i + 1, dict, false)) return true;
+        }
+        return false;
     }
 };
