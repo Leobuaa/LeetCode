@@ -53,4 +53,43 @@ public:
         
         return res;
     }
+
+
+    // Recursive solution
+    int pos = 0;
+    string decodeString(string s) {
+        return helper(s);
+    }
+    
+    string helper(string s) {
+        string res = "";
+        int num = 0;
+        while (pos < s.length()) {
+            if (isdigit(s[pos])) {
+                num = num * 10 + s[pos++] - '0';
+            } 
+            if (isalpha(s[pos])) {
+                res += s[pos++];
+            }
+            if (s[pos] == ']') {
+                pos++;
+                return res;
+            }
+            if (s[pos] == '[') {
+                pos++;
+                string tmp = helper(s);
+                if (num > 0) {
+                    string tmpRes = tmp;
+                    while (--num) {
+                        tmpRes += tmp;
+                    }
+                    res += tmpRes;
+                } else {
+                    res += tmp;
+                }
+            }
+        }
+        
+        return res;
+    }
 };
