@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // It runs 0 ms for the test cases.
     int lengthLongestPath(string input) {
         int res = 0;
         int strLen = 0, tabCnt = 0;
