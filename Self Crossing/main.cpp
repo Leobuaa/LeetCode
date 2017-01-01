@@ -1,6 +1,7 @@
 class Solution {
 public:
     // My first solution. It could be more simple. I need to make the code better.
+    // It runs 0 ms for the test case.
     bool isSelfCrossing(vector<int>& x) {
         if (x.size() < 4) {
             return false;
