@@ -47,11 +47,9 @@ public:
                 return res[2];
             }
         }
-        if (val >= 0) {
-            newIP += to_string(val);
-        }
+        newIP += to_string(val);
         
-        return (newIP.length() == IP.length()) ? res[0] : res[2];
+        return (newIP.length() == IP.length() && val > 0) ? res[0] : res[2];
     }
     
     string isValidIPv6(string& IP, vector<string>& res) {
