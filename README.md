@@ -1,2 +1,2 @@
 # LeetCode
-Some solutions of LeetCode Prombles (C++)
+Some solutions of LeetCode Prombles (C++) And Java
